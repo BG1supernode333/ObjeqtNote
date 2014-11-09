@@ -232,6 +232,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				else{
 					break;
 				}
+
+			}
+			break;
+		case ID_FILE_SAVE:
+			{
+				MessageBox(hWnd, _T("ID_FILE_SAVE"), _T("ObjeqtNote"), MB_OK);
 			}
 			break;
 		case IDM_ABOUT:
