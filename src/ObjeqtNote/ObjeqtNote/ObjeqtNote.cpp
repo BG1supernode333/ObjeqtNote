@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "ObjeqtNote.h"
+#include <stdio.h>
 
 #define MAX_LOADSTRING 100
 
@@ -252,10 +253,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				ofn.Flags = OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT;
 
 				if (GetSaveFileName(&ofn)){
-					MessageBox(hWnd, tszPath, _T("ObjeqtNote"), MB_OK);
+					
+					// テキストの長さを取得
+					HWND hEdit = NULL;
+					int iTextLen;
+					TCHAR tszTmp[64];
+
+					hEdit = GetDlgItem(hWnd, IDE_EDIT);
+					iTextLen = GetWindowTextLength(hEdit);
+
+					_stprintf(tszTmp, _T("iTextLen = %d"), iTextLen);
+					MessageBox(hWnd, tszTmp, _T("ObjeqtNote"), MB_OK);
+
 				}
 				else{
-					MessageBox(hWnd, _T("Cancel"), _T("ObjeqtNote"), MB_OK);
+					break;
 				}
 
 			}
