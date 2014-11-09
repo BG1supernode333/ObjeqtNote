@@ -6,6 +6,8 @@
 
 #define MAX_LOADSTRING 100
 
+#define IDE_EDIT                        200
+
 // グローバル変数:
 HINSTANCE hInst;								// 現在のインターフェイス
 TCHAR szTitle[MAX_LOADSTRING];					// タイトル バーのテキスト
@@ -141,6 +143,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:
 		{
+
 			LPCREATESTRUCT lpCS;
 			HWND hEdit;
 			RECT rc;
@@ -149,8 +152,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			GetClientRect(hWnd, &rc);
 		
-			hEdit = CreateWindow(_T("EDIT"), _T(""), WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hWnd, NULL, lpCS->hInstance, NULL);
+			hEdit = CreateWindow(_T("EDIT"), _T(""), WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hWnd, (HMENU)IDE_EDIT, lpCS->hInstance, NULL);
+		
+			HWND h = hEdit;
 		}
+		break;
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
 		wmEvent = HIWORD(wParam);
@@ -201,13 +207,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 					pszBuf[dwReadSize] = '\0';
 
-					MessageBoxA(hWnd, pszBuf, "ObjeqtNote", MB_OK);
+					CloseHandle(hFile);
+					hFile = NULL;
+
+					// エディットボックスに表示
+					int iTCharLen;
+					TCHAR *ptszBuf;
+					HWND hEdit;
+
+					iTCharLen = MultiByteToWideChar(CP_ACP, NULL, pszBuf, -1, NULL, 0);
+					ptszBuf = new TCHAR[iTCharLen];
+					MultiByteToWideChar(CP_ACP, NULL, pszBuf, -1, ptszBuf, iTCharLen);
 
 					delete [] pszBuf;
 					pszBuf = NULL;
 
-					CloseHandle(hFile);
-					hFile = NULL;
+					hEdit = GetDlgItem(hWnd, IDE_EDIT);
+					SetWindowText(hEdit, ptszBuf);
+
+					delete [] ptszBuf;
+					ptszBuf = NULL;
 
 				}
 				else{
