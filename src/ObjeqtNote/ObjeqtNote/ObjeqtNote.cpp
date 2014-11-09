@@ -257,13 +257,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					// テキストの長さを取得
 					HWND hEdit = NULL;
 					int iTextLen;
-					TCHAR tszTmp[64];
 
 					hEdit = GetDlgItem(hWnd, IDE_EDIT);
 					iTextLen = GetWindowTextLength(hEdit);
 
-					_stprintf(tszTmp, _T("iTextLen = %d"), iTextLen);
-					MessageBox(hWnd, tszTmp, _T("ObjeqtNote"), MB_OK);
+					// ファイル出力用メモリを確保
+					TCHAR *ptszBuf = new TCHAR[iTextLen + 1];
+					int iMultiByteCharLen;
+					char *pszBuf = NULL;
+
+					ZeroMemory(ptszBuf, iTextLen + 1);
+
+					GetWindowText(hEdit, ptszBuf, iTextLen + 1);
+
+					iMultiByteCharLen = WideCharToMultiByte(CP_ACP, 0, ptszBuf, -1, NULL, 0, NULL, NULL);
+					pszBuf = new char[iMultiByteCharLen];
+					WideCharToMultiByte(CP_ACP, 0, ptszBuf, -1, pszBuf, iMultiByteCharLen, NULL, NULL);
+
+					delete [] ptszBuf;
+					ptszBuf = NULL;
+
+					MessageBoxA(hWnd, pszBuf, "ObjeqtNote", MB_OK);
+
+					delete [] pszBuf;
+					pszBuf = NULL;
 
 				}
 				else{
