@@ -157,9 +157,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// 選択されたメニューの解析:
 		switch (wmId)
 		{
-		case ID_FILE_OPEN:
+		case ID_FILE_OPEN:	// 開く
 			{
-				MessageBox(hWnd, _T("ID_FILE_OPEN"), _T("ObjeqtNote"), MB_OK);
+				OPENFILENAME ofn;
+				TCHAR tszPath[MAX_PATH] = {0};
+
+				ZeroMemory(&ofn, sizeof(ofn));
+
+				ofn.lStructSize = sizeof(OPENFILENAME);
+				ofn.hwndOwner = hWnd;
+				ofn.lpstrFilter = _T("Text files (*.txt)\0*.txt\0All files (*.*)\0*.*\0\0");
+				ofn.lpstrFile = tszPath;
+				ofn.nMaxFile = MAX_PATH;
+				ofn.Flags = OFN_FILEMUSTEXIST;
+
+				if (GetOpenFileName(&ofn)){
+					MessageBox(hWnd, tszPath, _T("ObjeqtNote"), MB_OK);
+				}
+				else{
+					MessageBox(hWnd, _T("Cancel!"), _T("ObjeqtNote"), MB_OK);
+				}
 			}
 			break;
 		case IDM_ABOUT:
