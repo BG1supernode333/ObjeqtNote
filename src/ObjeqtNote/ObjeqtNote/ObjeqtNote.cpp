@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 #include "ObjeqtNote.h"
-#include <stdio.h>
 
 #define MAX_LOADSTRING 100
 
@@ -180,6 +179,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					HANDLE hFile = NULL;
 					DWORD dwFileSize = 0;
 					DWORD dwFileSizeHigh = 0;
+					DWORD dwSize = 0;	// 読み込む予定のサイズ
+					DWORD dwReadSize = 0;	// 実際に読み込めたサイズ
 
 					hFile = CreateFile(tszPath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (hFile == INVALID_HANDLE_VALUE){
@@ -191,13 +192,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 					dwFileSize = GetFileSize(hFile, &dwFileSizeHigh);
 					
+					// ファイルの読み込み
+					char *pszBuf = new char[dwFileSize + 1];
+
+					dwSize = dwFileSize;
+
+					ReadFile(hFile, pszBuf, dwSize, &dwReadSize, NULL);
+
+					pszBuf[dwReadSize] = '\0';
+
+					MessageBoxA(hWnd, pszBuf, "ObjeqtNote", MB_OK);
+
+					delete [] pszBuf;
+					pszBuf = NULL;
+
 					CloseHandle(hFile);
 					hFile = NULL;
-
-					TCHAR tszTmp[64];
-					_stprintf(tszTmp, _T("dwFileSize = %u"), dwFileSize);
-
-					MessageBox(hWnd, tszTmp, _T("ObjeqtNote"), MB_OK);
 
 				}
 				else{
