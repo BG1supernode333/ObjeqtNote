@@ -157,6 +157,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// ‘I‘ğ‚³‚ê‚½ƒƒjƒ…[‚Ì‰ğÍ:
 		switch (wmId)
 		{
+		case ID_FILE_OPEN:
+			{
+				MessageBox(hWnd, _T("ID_FILE_OPEN"), _T("ObjeqtNote"), MB_OK);
+			}
+			break;
 		case IDM_ABOUT:
 			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 			break;
