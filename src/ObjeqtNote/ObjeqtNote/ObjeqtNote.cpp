@@ -237,7 +237,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_FILE_SAVE:
 			{
-				MessageBox(hWnd, _T("ID_FILE_SAVE"), _T("ObjeqtNote"), MB_OK);
+
+				// ファイル選択ダイアログの表示
+				OPENFILENAME ofn;
+				TCHAR tszPath[MAX_PATH] = _T("*.txt");
+
+				ZeroMemory(&ofn, sizeof(ofn));
+
+				ofn.lStructSize = sizeof(OPENFILENAME);
+				ofn.hwndOwner = hWnd;
+				ofn.lpstrFilter = _T("Text files (*.txt)\0*.txt\0All files (*.*)\0*.*\0\0");
+				ofn.lpstrFile = tszPath;
+				ofn.nMaxFile = MAX_PATH;
+				ofn.Flags = OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT;
+
+				if (GetSaveFileName(&ofn)){
+					MessageBox(hWnd, tszPath, _T("ObjeqtNote"), MB_OK);
+				}
+				else{
+					MessageBox(hWnd, _T("Cancel"), _T("ObjeqtNote"), MB_OK);
+				}
+
 			}
 			break;
 		case IDM_ABOUT:
