@@ -139,6 +139,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	switch (message)
 	{
+	case WM_CREATE:
+		{
+			LPCREATESTRUCT lpCS;
+			HWND hEdit;
+			RECT rc;
+
+			lpCS = (LPCREATESTRUCT)lParam;
+
+			GetClientRect(hWnd, &rc);
+		
+			hEdit = CreateWindow(_T("EDIT"), _T(""), WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hWnd, NULL, lpCS->hInstance, NULL);
+		}
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
 		wmEvent = HIWORD(wParam);
