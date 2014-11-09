@@ -277,7 +277,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					delete [] ptszBuf;
 					ptszBuf = NULL;
 
-					MessageBoxA(hWnd, pszBuf, "ObjeqtNote", MB_OK);
+					// ファイルを書き込む
+					HANDLE hFile = NULL;
+					DWORD dwWriteLen = iMultiByteCharLen - 1;
+					DWORD dwWrittenLen = 0;
+
+					hFile = CreateFile(tszPath, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+					if (hFile == INVALID_HANDLE_VALUE){
+						
+						MessageBox(hWnd, _T("ファイルのオープンに失敗しました!"), _T("ObjeqtNote"), MB_OK | MB_ICONEXCLAMATION); 
+						
+						delete [] pszBuf;
+						pszBuf = NULL;
+						
+						break;
+
+					}
+
+					WriteFile(hFile, pszBuf, dwWriteLen, &dwWrittenLen, NULL);
+
+					CloseHandle(hFile);
+					hFile = NULL;
 
 					delete [] pszBuf;
 					pszBuf = NULL;
