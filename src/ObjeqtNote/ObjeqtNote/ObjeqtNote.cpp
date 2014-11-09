@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "ObjeqtNote.h"
+#include <stdio.h>
 
 #define MAX_LOADSTRING 100
 
@@ -159,6 +160,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 		case ID_FILE_OPEN:	// 開く
 			{
+
+				// ファイル選択ダイアログの表示
 				OPENFILENAME ofn;
 				TCHAR tszPath[MAX_PATH] = {0};
 
@@ -172,10 +175,33 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				ofn.Flags = OFN_FILEMUSTEXIST;
 
 				if (GetOpenFileName(&ofn)){
-					MessageBox(hWnd, tszPath, _T("ObjeqtNote"), MB_OK);
+
+					// ファイルサイズの取得
+					HANDLE hFile = NULL;
+					DWORD dwFileSize = 0;
+					DWORD dwFileSizeHigh = 0;
+
+					hFile = CreateFile(tszPath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+					if (hFile == INVALID_HANDLE_VALUE){
+						
+						MessageBox(hWnd, _T("ファイルのオープンに失敗しました!"), _T("ObjeqtNote"), MB_OK | MB_ICONEXCLAMATION); 
+						break;
+
+					}
+
+					dwFileSize = GetFileSize(hFile, &dwFileSizeHigh);
+					
+					CloseHandle(hFile);
+					hFile = NULL;
+
+					TCHAR tszTmp[64];
+					_stprintf(tszTmp, _T("dwFileSize = %u"), dwFileSize);
+
+					MessageBox(hWnd, tszTmp, _T("ObjeqtNote"), MB_OK);
+
 				}
 				else{
-					MessageBox(hWnd, _T("Cancel!"), _T("ObjeqtNote"), MB_OK);
+					break;
 				}
 			}
 			break;
