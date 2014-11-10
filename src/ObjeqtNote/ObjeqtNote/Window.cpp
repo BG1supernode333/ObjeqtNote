@@ -28,6 +28,12 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			return OnCreate(hwnd, (LPCREATESTRUCT)lParam);
 
+		case WM_DESTROY:
+
+			OnDestroy();
+			
+			break;
+
 		default:
 
 			break;
@@ -56,6 +62,12 @@ int CWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCS){
 
 }
 
+void CWindow::OnDestroy(){
+
+	PostQuitMessage(0);
+
+}
+
 LRESULT CALLBACK CWindow::StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 
 	if (uMsg == WM_CREATE){
@@ -70,8 +82,9 @@ LRESULT CALLBACK CWindow::StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, 
 	}
 	else if (uMsg == WM_DESTROY){
 
-		PostQuitMessage(0);
+		CWindow *pWindow = (CWindow *)GetProp(hwnd, _T("Object"));
 		SetProp(hwnd, _T("Object"), NULL);
+		return pWindow->DynamicWindowProc(hwnd, uMsg, wParam, lParam);
 
 	}
 	else{

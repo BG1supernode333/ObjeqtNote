@@ -13,6 +13,7 @@ class CWindow{
 		BOOL ShowWindow(int nCmdShow);
 		LRESULT DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		int OnCreate(HWND hwnd, LPCREATESTRUCT lpCS);
+		void OnDestroy();
 		static LRESULT CALLBACK StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		static ATOM RegisterWndClass(HINSTANCE hInstance);
 
