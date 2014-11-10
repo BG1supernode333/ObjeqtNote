@@ -5,7 +5,7 @@
 
 BOOL CApplication::InitInstance(HINSTANCE hInstance, int nCmdShow){
 
-	if (!RegisterWndClass(hInstance)){
+	if (!CWindow::RegisterWndClass(hInstance)){
 
 		return FALSE;
 
@@ -26,29 +26,10 @@ BOOL CApplication::InitInstance(HINSTANCE hInstance, int nCmdShow){
 		return FALSE;
 	}
 
-	ShowWindow(pWindow->m_hWnd, SW_SHOW);
+	pWindow->ShowWindow(SW_SHOW);
 
 	m_pWnd = pWindow;
 
 	return TRUE;
-
-}
-
-ATOM CApplication::RegisterWndClass(HINSTANCE hInstance){
-
-	WNDCLASS wc;
-
-	wc.lpszClassName = _T("ObjeqtNote");
-	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.lpfnWndProc = CWindow::StaticWindowProc;
-	wc.hInstance = hInstance;
-	wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_OBJEQTNOTE));
-	wc.hCursor = LoadCursor(hInstance, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName = MAKEINTRESOURCE(IDC_OBJEQTNOTE);
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-
-	return RegisterClass(&wc);
 
 }

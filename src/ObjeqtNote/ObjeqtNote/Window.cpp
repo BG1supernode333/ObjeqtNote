@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Resource.h"
 #include "Window.h"
 
 BOOL CWindow::Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dwStyle, const RECT &rect, HWND hParentWnd, UINT nID, HINSTANCE hInstance){
@@ -9,6 +10,18 @@ BOOL CWindow::Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dw
 	}
 
 	return TRUE;
+
+}
+
+BOOL CWindow::ShowWindow(int nCmdShow){
+
+	return ::ShowWindow(m_hWnd, nCmdShow);
+
+}
+
+LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
+
+	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 
 }
 
@@ -45,8 +58,21 @@ LRESULT CALLBACK CWindow::StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, 
 
 }
 
-LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
+ATOM CWindow::RegisterWndClass(HINSTANCE hInstance){
 
-	return DefWindowProc(hwnd, uMsg, wParam, lParam);
+	WNDCLASS wc;
+
+	wc.lpszClassName = _T("ObjeqtNote");
+	wc.style = CS_HREDRAW | CS_VREDRAW;
+	wc.lpfnWndProc = CWindow::StaticWindowProc;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_OBJEQTNOTE));
+	wc.hCursor = LoadCursor(hInstance, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wc.lpszMenuName = MAKEINTRESOURCE(IDC_OBJEQTNOTE);
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+
+	return RegisterClass(&wc);
 
 }
