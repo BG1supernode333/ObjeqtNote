@@ -1,6 +1,13 @@
 #pragma once
 
+#include "Window.h"
+
 class CApplication{
+
+	//private:
+	public:
+
+		CWindow *m_pWnd;
 
 	public:
 

@@ -39,7 +39,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	}
 
-	delete g_pApp;
+	//delete g_pApp;
 
 #else
 
@@ -79,7 +79,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 	}
 
+	if (g_pApp->m_pWnd != NULL){
+		delete g_pApp->m_pWnd;
+		g_pApp->m_pWnd = NULL;
+	}
+
+	delete g_pApp;
+	g_pApp = NULL;
+
 	return (int) msg.wParam;
+
 }
 
 

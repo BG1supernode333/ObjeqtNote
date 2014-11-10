@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Resource.h"
 #include "Application.h"
+#include "Window.h"
 
 BOOL CApplication::InitInstance(HINSTANCE hInstance, int nCmdShow){
 
@@ -10,9 +11,26 @@ BOOL CApplication::InitInstance(HINSTANCE hInstance, int nCmdShow){
 
 	}
 
-	MessageBox(NULL, _T("RegisterWndClass Success!"), _T("ObjeqtNote"), MB_OK);
+	CWindow *pWindow = new CWindow();
 
-	return FALSE;
+	RECT rc;
+	rc.left = 0;
+	rc.top = 0;
+	rc.right = 640;
+	rc.bottom = 480;
+
+	BOOL bRet;
+
+	bRet = pWindow->Create(_T("ObjeqtNote"), _T("ObjeqtNote"), WS_OVERLAPPEDWINDOW, rc, NULL, NULL, hInstance);
+	if (!bRet){
+		return FALSE;
+	}
+
+	ShowWindow(pWindow->m_hWnd, SW_SHOW);
+
+	m_pWnd = pWindow;
+
+	return TRUE;
 
 }
 
@@ -22,7 +40,7 @@ ATOM CApplication::RegisterWndClass(HINSTANCE hInstance){
 
 	wc.lpszClassName = _T("ObjeqtNote");
 	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.lpfnWndProc = DefWindowProc;
+	wc.lpfnWndProc = CWindow::StaticWindowProc;
 	wc.hInstance = hInstance;
 	wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_OBJEQTNOTE));
 	wc.hCursor = LoadCursor(hInstance, IDC_ARROW);
