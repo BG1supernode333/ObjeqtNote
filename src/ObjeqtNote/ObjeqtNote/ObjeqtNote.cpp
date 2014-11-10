@@ -8,8 +8,6 @@
 
 #define MAX_LOADSTRING 100
 
-#define IDE_EDIT                        200
-
 // グローバル変数:
 HINSTANCE hInst;								// 現在のインターフェイス
 TCHAR szTitle[MAX_LOADSTRING];					// タイトル バーのテキスト

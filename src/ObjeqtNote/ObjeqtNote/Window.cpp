@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ObjeqtNote.h"
 #include "Resource.h"
 #include "Window.h"
 
@@ -21,7 +22,37 @@ BOOL CWindow::ShowWindow(int nCmdShow){
 
 LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 
+	switch (uMsg){
+
+		case WM_CREATE:
+
+			return OnCreate(hwnd, (LPCREATESTRUCT)lParam);
+
+		default:
+
+			break;
+
+	}
+
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
+
+}
+
+int CWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCS){
+
+	HWND hEdit;
+	RECT rc;
+
+	GetClientRect(hwnd, &rc);
+		
+	hEdit = CreateWindow(_T("EDIT"), _T(""), WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hwnd, (HMENU)IDE_EDIT, lpCS->hInstance, NULL);
+	if (hEdit == NULL){
+
+		return -1;
+
+	}
+
+	return 0;
 
 }
 
@@ -33,7 +64,7 @@ LRESULT CALLBACK CWindow::StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, 
 			if (lpCS->lpCreateParams != NULL){
 				CWindow *pWindow = (CWindow *)lpCS->lpCreateParams;
 				SetProp(hwnd, _T("Object"), (HANDLE)pWindow);
-				return 0;
+				return pWindow->DynamicWindowProc(hwnd, uMsg, wParam, lParam);
 			}
 		}
 	}
