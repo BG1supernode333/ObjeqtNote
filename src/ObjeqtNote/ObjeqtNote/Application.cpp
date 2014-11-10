@@ -33,3 +33,14 @@ BOOL CApplication::InitInstance(HINSTANCE hInstance, int nCmdShow){
 	return TRUE;
 
 }
+
+int CApplication::ExitInstance(){
+
+	if (m_pWnd != NULL){
+		delete m_pWnd;
+		m_pWnd = NULL;
+	}
+
+	return 0;
+	
+}

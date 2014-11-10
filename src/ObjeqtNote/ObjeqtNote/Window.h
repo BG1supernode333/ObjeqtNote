@@ -14,4 +14,5 @@ class CWindow{
 		LRESULT DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		static LRESULT CALLBACK StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		static ATOM RegisterWndClass(HINSTANCE hInstance);
+
 };
