@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "ObjeqtNote.h"
+#include "Application.h"
 #include <stdio.h>
 
 #define MAX_LOADSTRING 100
@@ -13,6 +14,7 @@
 HINSTANCE hInst;								// 現在のインターフェイス
 TCHAR szTitle[MAX_LOADSTRING];					// タイトル バーのテキスト
 TCHAR szWindowClass[MAX_LOADSTRING];			// メイン ウィンドウ クラス名
+CApplication *g_pApp = NULL;
 
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -25,6 +27,22 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+
+#if 1
+
+	g_pApp = new CApplication();
+
+	if (!g_pApp->InitInstance(hInstance, nCmdShow)){
+
+		delete g_pApp;
+		return -1;
+
+	}
+
+	delete g_pApp;
+
+#else
+
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -42,6 +60,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
+
+#endif
+
+	// TODO: ここにコードを挿入してください。
+	MSG msg;
+	HACCEL hAccelTable;
 
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_OBJEQTNOTE));
 
