@@ -18,6 +18,7 @@ class CMainWindow : public CWindow{
 		virtual int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
 		virtual void OnDestroy(HWND hwnd);
 		virtual BOOL OnCommand(HWND hwnd, UINT nID, UINT nNotifyCode, HWND hWndControl);
+		void OnFileOpen(HWND hwnd);
 
 		HWND m_hStc;
 

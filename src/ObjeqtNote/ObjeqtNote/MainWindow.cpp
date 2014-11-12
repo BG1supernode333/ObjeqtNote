@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Resource.h"
 #include "MainWindow.h"
-
+#include "FileDialog.h"
 
 ATOM CMainWindow::RegisterWindowClass(HINSTANCE hInstance, HICON hIcon, HCURSOR hCursor, HBRUSH hbrBackground, LPCTSTR lpctszMenuName){
 
@@ -166,7 +166,7 @@ BOOL CMainWindow::OnCommand(HWND hwnd, UINT nID, UINT nNotifyCode, HWND hWndCont
 
 		case ID_FILE_OPEN:
 
-			MessageBox(hwnd, _T("ID_FILE_OPEN"), _T("ObjeqtNote"), MB_OK);
+			OnFileOpen(hwnd);
 
 			break;
 
@@ -177,5 +177,21 @@ BOOL CMainWindow::OnCommand(HWND hwnd, UINT nID, UINT nNotifyCode, HWND hWndCont
 	}
 
 	return TRUE;
+
+}
+
+void CMainWindow::OnFileOpen(HWND hwnd){
+
+	int iRet;
+
+	CFileDialog selDlg(_T(""), hwnd, _T("Text files (*.txt)\0*.txt\0All files (*.*)\0*.*\0\0"));
+
+	iRet = selDlg.DoModal();
+
+	if (iRet == IDOK){
+
+		MessageBox(hwnd, selDlg.m_tszPath, _T("ObjeqtNote"), MB_OK);
+
+	}
 
 }
