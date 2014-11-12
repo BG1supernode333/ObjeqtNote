@@ -2,4 +2,4 @@
 
 #include "resource.h"
 
-#define IDE_EDIT                        200
+#define ID_DYNAMIC_CONTROL_MIN	500

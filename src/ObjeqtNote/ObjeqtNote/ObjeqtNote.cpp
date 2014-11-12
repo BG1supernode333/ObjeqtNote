@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "ObjeqtNote.h"
-#include "Application.h"
+#include "MainApplication.h"
 #include <stdio.h>
 
 #define MAX_LOADSTRING 100
@@ -28,9 +28,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 #if 1
 
-	g_pApp = new CApplication();
+	g_pApp = new CMainApplication();
 
-	if (!g_pApp->InitInstance(hInstance, nCmdShow)){
+	if (!g_pApp->InitInstance(hInstance)){
 
 		delete g_pApp;
 		return -1;
@@ -181,7 +181,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			GetClientRect(hWnd, &rc);
 		
-			hEdit = CreateWindow(_T("EDIT"), _T(""), WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hWnd, (HMENU)IDE_EDIT, lpCS->hInstance, NULL);
+			hEdit = CreateWindow(_T("EDIT"), _T(""), WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hWnd, (HMENU)ID_DYNAMIC_CONTROL_MIN + 1, lpCS->hInstance, NULL);
 		
 			HWND h = hEdit;
 		}
@@ -251,7 +251,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					delete [] pszBuf;
 					pszBuf = NULL;
 
-					hEdit = GetDlgItem(hWnd, IDE_EDIT);
+					hEdit = GetDlgItem(hWnd, ID_DYNAMIC_CONTROL_MIN + 2);
 					SetWindowText(hEdit, ptszBuf);
 
 					delete [] ptszBuf;
@@ -286,7 +286,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					HWND hEdit = NULL;
 					int iTextLen;
 
-					hEdit = GetDlgItem(hWnd, IDE_EDIT);
+					hEdit = GetDlgItem(hWnd, ID_DYNAMIC_CONTROL_MIN + 2);
 					iTextLen = GetWindowTextLength(hEdit);
 
 					// ファイル出力用メモリを確保

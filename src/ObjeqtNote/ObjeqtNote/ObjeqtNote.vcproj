@@ -179,6 +179,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MainApplication.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MainWindow.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ObjeqtNote.cpp"
 				>
 			</File>
@@ -214,6 +222,14 @@
 			>
 			<File
 				RelativePath=".\Application.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MainApplication.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MainWindow.h"
 				>
 			</File>
 			<File

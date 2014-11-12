@@ -3,6 +3,50 @@
 #include "Application.h"
 #include "Window.h"
 
+#if 1
+
+BOOL CApplication::InitInstance(HINSTANCE hInstance){
+	
+	m_pMainWindow = NULL;
+
+	CWindow::RegisterWindowClass(hInstance);
+
+	CWindow *pWnd = new CWindow();
+
+	RECT rc;
+	rc.left = 0;
+	rc.top = 0;
+	rc.right = 640;
+	rc.bottom = 480;
+
+	if (!pWnd->Create(_T("ObjeqtNote"), WS_OVERLAPPEDWINDOW, &rc, NULL, NULL, hInstance)){
+		delete pWnd;
+		return FALSE;
+	}
+
+	m_pMainWindow = pWnd;
+
+	pWnd->ShowWindow(SW_SHOW);
+
+	return TRUE;
+
+}
+
+int CApplication::ExitInstance(){
+
+	if (m_pMainWindow){
+
+		delete m_pMainWindow;
+		m_pMainWindow = NULL;
+
+	}
+
+	return 0;
+
+}
+
+#else
+
 BOOL CApplication::InitInstance(HINSTANCE hInstance, int nCmdShow){
 
 	if (!CWindow::RegisterWndClass(hInstance)){
@@ -44,3 +88,5 @@ int CApplication::ExitInstance(){
 	return 0;
 	
 }
+
+#endif

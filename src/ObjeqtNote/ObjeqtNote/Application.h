@@ -4,14 +4,13 @@
 
 class CApplication{
 
-	//private:
+	protected:
+
+		CWindow *m_pMainWindow;
+
 	public:
 
-		CWindow *m_pWnd;
-
-	public:
-
-		BOOL InitInstance(HINSTANCE hInstance, int nCmdShow);
-		int ExitInstance();
+		virtual BOOL InitInstance(HINSTANCE hInstance);
+		virtual int ExitInstance();
 
 };
