@@ -55,6 +55,7 @@ LRESULT CMainWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
 
 			{
 
+				OnDestroy(hwnd);
 				PostQuitMessage(0);
 
 			}
@@ -102,6 +103,18 @@ BOOL CMainWindow::Create(LPCTSTR lpctszWindowName, DWORD dwStyle, int x, int y, 
 
 int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct){
 
+	m_pChild1 = new CChildWindow();
+	BOOL b1 = m_pChild1->Create(_T("Child1"), WS_CAPTION | WS_THICKFRAME, 500, 0, 200, 200, lpCreateStruct->hInstance);
+
+	m_pChild2 = new CChildWindow();
+	BOOL b2 = m_pChild2->Create(_T("Child2"), WS_CHILD | WS_VISIBLE | WS_POPUP, 500, 400, 200, 200, lpCreateStruct->hInstance);
+
+	m_pChild1->ShowWindow(SW_SHOW);
+	m_pChild2->ShowWindow(SW_SHOW);
+
+	BOOL bx = b2;
+#if 0
+
 	RECT rc;
 
 	GetClientRect(hwnd, &rc);
@@ -113,6 +126,24 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct){
 	m_hStc = CreateWindow(_T("STATIC"), _T(""), WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL, rc.left, q, rc.right - rc.left, q, hwnd, 0/*(HMENU)IDE_EDIT*/, lpCreateStruct->hInstance, NULL);
 	HWND hEdt2 = CreateWindow(_T("EDIT"), _T(""), WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL, rc.left, q * 2, rc.right - rc.left, q, hwnd, 0/*(HMENU)IDE_EDIT*/, lpCreateStruct->hInstance, NULL);
 	
+#endif
+
 	return 0;
+
+}
+
+void CMainWindow::OnDestroy(HWND hwnd){
+
+	if (m_pChild1){
+		m_pChild1->DestroyWindow();
+		delete m_pChild1;
+		m_pChild1 = NULL;
+	}
+
+	if (m_pChild2){
+		m_pChild2->DestroyWindow();
+		delete m_pChild2;
+		m_pChild2 = NULL;
+	}
 
 }

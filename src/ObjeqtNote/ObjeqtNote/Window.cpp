@@ -179,9 +179,20 @@ void CWindow::MoveWindow(int x, int y, int iWidth, int iHeight, BOOL bRepaint){
 
 }
 
+BOOL CWindow::DestroyWindow(){
+
+	BOOL b = ::DestroyWindow(m_hWnd);
+	return b;
+
+}
+
 int CWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct){
 
 	return 0;
+
+}
+
+void CWindow::OnDestroy(HWND hwnd){
 
 }
 

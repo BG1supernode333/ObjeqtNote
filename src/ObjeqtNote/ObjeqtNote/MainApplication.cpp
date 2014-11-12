@@ -5,8 +5,6 @@
 
 BOOL CMainApplication::InitInstance(HINSTANCE hInstance){
 
-	CMainWindow *pMainWnd = new CMainWindow();
-
 	CMainWindow::RegisterWindowClass(hInstance,
 		LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPLICATION)),
 		LoadCursor(hInstance, IDC_ARROW),
@@ -14,7 +12,17 @@ BOOL CMainApplication::InitInstance(HINSTANCE hInstance){
 		MAKEINTRESOURCE(IDC_OBJEQTNOTE)
 	);
 
-	BOOL bRet = pMainWnd->Create(_T("Main"), WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL, 0, 0, 639, 479, hInstance);
+	CChildWindow::RegisterWindowClass(hInstance,
+		LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPLICATION)),
+		LoadCursor(hInstance, IDC_ARROW),
+		(HBRUSH)GetStockObject(GRAY_BRUSH),
+		NULL
+		);
+
+
+	CMainWindow *pMainWnd = new CMainWindow();
+
+	BOOL bRet = pMainWnd->Create(_T("Main"), WS_OVERLAPPEDWINDOW/* | WS_HSCROLL | WS_VSCROLL*/, 0, 0, 640, 480, hInstance);
 	if (!bRet){
 
 		delete pMainWnd;
@@ -29,7 +37,7 @@ BOOL CMainApplication::InitInstance(HINSTANCE hInstance){
 
 	pMainWnd->UpdateWindow();
 
-	pMainWnd->MoveWindow(0, 0, 640, 480, TRUE);
+	//pMainWnd->MoveWindow(0, 0, 640, 480, TRUE);
 
 	return TRUE;
 

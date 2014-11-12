@@ -17,6 +17,8 @@ class CWindow{
 		BOOL ShowWindow(int nCmdShow);
 		void UpdateWindow();
 		void MoveWindow(int x, int y, int iWidth, int iHeight, BOOL bRepaint);
+		BOOL DestroyWindow();
 		virtual int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
+		virtual void OnDestroy(HWND hwnd);
 
 };

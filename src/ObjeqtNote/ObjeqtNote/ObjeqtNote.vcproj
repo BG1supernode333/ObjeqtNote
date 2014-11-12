@@ -179,6 +179,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ChildWindow.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MainApplication.cpp"
 				>
 			</File>
@@ -222,6 +226,10 @@
 			>
 			<File
 				RelativePath=".\Application.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ChildWindow.h"
 				>
 			</File>
 			<File
