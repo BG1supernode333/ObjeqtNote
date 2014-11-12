@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Resource.h"
 #include "MainWindow.h"
 
 
@@ -56,7 +57,6 @@ LRESULT CMainWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
 			{
 
 				OnDestroy(hwnd);
-				PostQuitMessage(0);
 
 			}
 
@@ -72,6 +72,16 @@ LRESULT CMainWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
 				DeleteObject(hbmp);
 				*/
 			}
+			break;
+
+		case WM_COMMAND:
+
+			{
+
+				return OnCommand(hwnd, LOWORD(wParam), HIWORD(wParam), (HWND)lParam);
+
+			}
+
 			break;
 
 		default:
@@ -145,5 +155,27 @@ void CMainWindow::OnDestroy(HWND hwnd){
 		delete m_pChild2;
 		m_pChild2 = NULL;
 	}
+
+	PostQuitMessage(0);
+
+}
+
+BOOL CMainWindow::OnCommand(HWND hwnd, UINT nID, UINT nNotifyCode, HWND hWndControl){
+
+	switch (nID){
+
+		case ID_FILE_OPEN:
+
+			MessageBox(hwnd, _T("ID_FILE_OPEN"), _T("ObjeqtNote"), MB_OK);
+
+			break;
+
+		default:
+
+			break;
+
+	}
+
+	return TRUE;
 
 }

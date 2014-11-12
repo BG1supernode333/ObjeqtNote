@@ -112,7 +112,12 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			{
 
-				return 0;
+
+				LPCREATESTRUCT lpCS;
+
+				lpCS = (LPCREATESTRUCT)lParam;
+
+				return OnCreate(hwnd, lpCS);
 
 			}
 			
@@ -122,7 +127,17 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			{
 
-				PostQuitMessage(0);
+				OnDestroy(hwnd);
+
+			}
+
+			break;
+
+		case WM_COMMAND:
+
+			{
+
+				return OnCommand(hwnd, LOWORD(wParam), HIWORD(wParam), (HWND)lParam);
 
 			}
 
@@ -193,6 +208,15 @@ int CWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct){
 }
 
 void CWindow::OnDestroy(HWND hwnd){
+
+	PostQuitMessage(0);
+
+}
+
+
+BOOL CWindow::OnCommand(HWND hwnd, UINT nID, UINT nNotifyCode, HWND hWndControl){
+
+	return TRUE;
 
 }
 

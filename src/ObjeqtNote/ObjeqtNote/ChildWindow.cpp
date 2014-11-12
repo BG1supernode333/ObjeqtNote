@@ -42,7 +42,7 @@ LRESULT CChildWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPA
 
 			{
 
-				MessageBox(hwnd, _T("a"), _T("a"), MB_OK);
+				//MessageBox(hwnd, _T("a"), _T("a"), MB_OK);
 			}
 
 			break;

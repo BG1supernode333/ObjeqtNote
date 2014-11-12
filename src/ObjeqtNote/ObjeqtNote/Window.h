@@ -20,5 +20,6 @@ class CWindow{
 		BOOL DestroyWindow();
 		virtual int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
 		virtual void OnDestroy(HWND hwnd);
+		virtual BOOL OnCommand(HWND hwnd, UINT nID, UINT nNotifyCode, HWND hWndControl);
 
 };

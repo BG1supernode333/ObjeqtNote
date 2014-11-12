@@ -15,8 +15,10 @@ class CMainWindow : public CWindow{
 		static ATOM RegisterWindowClass(HINSTANCE hInstance, HICON hIcon, HCURSOR hCursor, HBRUSH hbrBackground, LPCTSTR lpctszMenuName);
 		LRESULT DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		BOOL Create(LPCTSTR lpctszWindowName, DWORD dwStyle, int x, int y, int iWidth, int iHeight, HINSTANCE hInstance);
-		int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
-		void OnDestroy(HWND hwnd);
+		virtual int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
+		virtual void OnDestroy(HWND hwnd);
+		virtual BOOL OnCommand(HWND hwnd, UINT nID, UINT nNotifyCode, HWND hWndControl);
+
 		HWND m_hStc;
 
 };

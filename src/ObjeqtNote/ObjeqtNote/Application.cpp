@@ -35,7 +35,7 @@ BOOL CApplication::InitInstance(HINSTANCE hInstance){
 int CApplication::ExitInstance(){
 
 	if (m_pMainWindow){
-
+		//BOOL b = m_pMainWindow->DestroyWindow();
 		delete m_pMainWindow;
 		m_pMainWindow = NULL;
 
