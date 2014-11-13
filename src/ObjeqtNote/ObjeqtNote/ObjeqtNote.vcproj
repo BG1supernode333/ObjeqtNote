@@ -183,6 +183,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\File.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FileDialog.cpp"
 				>
 			</File>
@@ -234,6 +238,10 @@
 			</File>
 			<File
 				RelativePath=".\ChildWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\File.h"
 				>
 			</File>
 			<File
