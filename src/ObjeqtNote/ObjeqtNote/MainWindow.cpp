@@ -2,7 +2,7 @@
 #include "Resource.h"
 #include "MainWindow.h"
 #include "FileDialog.h"
-#include "File.h"
+#include "TextFile.h"
 
 ATOM CMainWindow::RegisterWindowClass(HINSTANCE hInstance, HICON hIcon, HCURSOR hCursor, HBRUSH hbrBackground, LPCTSTR lpctszMenuName){
 
@@ -191,10 +191,14 @@ void CMainWindow::OnFileOpen(HWND hwnd){
 
 	if (iRet == IDOK){
 
-		CFile m_cFile(selDlg.m_tszPath, GENERIC_READ);
+		//CFile m_cFile(selDlg.m_tszPath, GENERIC_READ);
+		CTextFile m_cFile(selDlg.m_tszPath, GENERIC_READ);
 		if (m_cFile.IsOpen()){
 			m_cFile.GetLength();
 			m_cFile.ReadAll();
+			m_cFile.FreeByteBuffer();
+			int i = m_cFile.GetTextLength();
+			MessageBox(hwnd, m_cFile.GetTextStringPointer(), _T("ObjeqtNote"), MB_OK);
 			m_cFile.Close();
 		}
 

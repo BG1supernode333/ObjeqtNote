@@ -183,6 +183,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Encode.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\File.cpp"
 				>
 			</File>
@@ -223,6 +227,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\TextFile.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Window.cpp"
 				>
 			</File>
@@ -238,6 +246,10 @@
 			</File>
 			<File
 				RelativePath=".\ChildWindow.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Encode.h"
 				>
 			</File>
 			<File
@@ -266,6 +278,10 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TextFile.h"
 				>
 			</File>
 			<File
